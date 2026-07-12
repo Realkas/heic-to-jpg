@@ -5,23 +5,51 @@ import { downloadSingleFile } from '../lib/zipUtils';
 
 interface FileItemProps {
   file: ConvertedFile;
+  selected: boolean;
+  onToggleSelect: (id: string) => void;
   onRemove: (id: string) => void;
 }
 
-export default function FileItem({ file, onRemove }: FileItemProps) {
+export default function FileItem({ file, selected, onToggleSelect, onRemove }: FileItemProps) {
   return (
     <div
       className={[
         'group flex items-start gap-3 p-3 rounded-xl border transition-all',
-        file.status === 'done'
-          ? 'border-emerald-100 dark:border-emerald-900/50 bg-emerald-50/40 dark:bg-emerald-950/20'
-          : file.status === 'error'
-            ? 'border-red-100 dark:border-red-900/50 bg-red-50/40 dark:bg-red-950/20'
-            : file.status === 'converting'
-              ? 'border-indigo-100 dark:border-indigo-900/50 bg-indigo-50/40 dark:bg-indigo-950/20'
-              : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900',
+        selected
+          ? 'border-indigo-300 dark:border-indigo-600 bg-indigo-50/60 dark:bg-indigo-950/30 ring-1 ring-indigo-200 dark:ring-indigo-800'
+          : file.status === 'done'
+            ? 'border-emerald-100 dark:border-emerald-900/50 bg-emerald-50/40 dark:bg-emerald-950/20'
+            : file.status === 'error'
+              ? 'border-red-100 dark:border-red-900/50 bg-red-50/40 dark:bg-red-950/20'
+              : file.status === 'converting'
+                ? 'border-indigo-100 dark:border-indigo-900/50 bg-indigo-50/40 dark:bg-indigo-950/20'
+                : 'border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900',
       ].join(' ')}
     >
+      {/* Checkbox */}
+      <button
+        type="button"
+        role="checkbox"
+        aria-checked={selected}
+        aria-label={`${selected ? 'Зняти виділення' : 'Вибрати'} ${file.outputFileName}`}
+        onClick={() => onToggleSelect(file.id)}
+        className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-md border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 flex items-center justify-center cursor-pointer
+          border-slate-300 dark:border-slate-600
+          checked:border-indigo-500
+          hover:border-indigo-400 dark:hover:border-indigo-500
+          bg-white dark:bg-slate-900"
+        style={{
+          borderColor: selected ? '#6366f1' : undefined,
+          backgroundColor: selected ? '#6366f1' : undefined,
+        }}
+      >
+        {selected && (
+          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        )}
+      </button>
+
       {/* Thumbnail / Placeholder */}
       <div className="w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700">
         {file.previewUrl ? (
