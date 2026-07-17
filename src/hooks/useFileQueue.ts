@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import type { ConvertedFile, ConversionSettings, StatsData } from '../types/converter';
 import { convertHeicToJpg } from '../lib/converter';
 import {
-  isHeicFile,
+  isSupportedFile,
   fileDedupeKey,
   buildOutputFileName,
   uniquifyFileName,
@@ -71,7 +71,7 @@ export function useFileQueue(settings: ConversionSettings): UseFileQueueReturn {
       onNeedConfirm?: (count: number, proceed: () => void) => void,
     ): AddFilesResult => {
       // Separate valid from invalid
-      const valid = entries.filter((e) => isHeicFile(e.file));
+      const valid = entries.filter((e) => isSupportedFile(e.file));
       const skipped = entries.length - valid.length;
 
       // Check existing dedup keys

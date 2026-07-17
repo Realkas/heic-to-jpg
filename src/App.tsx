@@ -111,7 +111,7 @@ export default function App() {
       if (result.skipped > 0) {
         showToast(
           'warning',
-          `Пропущено ${result.skipped} файлів: підтримуються лише HEIC та HEIF.`,
+          `Пропущено ${result.skipped} файлів: підтримуються лише HEIC, HEIF, WEBP та JFIF.`,
         );
       }
       if (result.duplicates > 0) {
@@ -232,7 +232,7 @@ function EmptyState() {
   return (
     <div className="text-center py-8 space-y-2">
       <p className="text-sm text-slate-400 dark:text-slate-500">
-        Ще немає файлів. Перетягніть HEIC-фото або скористайтеся кнопками вище.
+        Ще немає файлів. Перетягніть HEIC/WEBP/JFIF-фото або скористайтеся кнопками вище.
       </p>
       <p className="text-xs text-slate-300 dark:text-slate-600">
         Найкраще тестувати у Chrome або Edge для повної підтримки вибору папок.

@@ -9,6 +9,21 @@ export function isHeicFile(file: File): boolean {
 }
 
 /**
+ * Checks if a File has a WEBP/JFIF extension (case-insensitive).
+ */
+export function isWebpOrJfifFile(file: File): boolean {
+  const name = file.name.toLowerCase();
+  return name.endsWith('.webp') || name.endsWith('.jfif');
+}
+
+/**
+ * Checks if a File is one of the supported input formats (HEIC/HEIF/WEBP/JFIF).
+ */
+export function isSupportedFile(file: File): boolean {
+  return isHeicFile(file) || isWebpOrJfifFile(file);
+}
+
+/**
  * Builds a deduplication key from file identity fields.
  */
 export function fileDedupeKey(file: File, relativePath: string): string {
@@ -31,7 +46,7 @@ export function formatBytes(bytes: number, decimals = 1): string {
  * Generates output JPG filename from the original HEIC name.
  */
 export function buildOutputFileName(originalName: string): string {
-  return originalName.replace(/\.(heic|heif)$/i, '.jpg');
+  return originalName.replace(/\.(heic|heif|webp|jfif)$/i, '.jpg');
 }
 
 /**

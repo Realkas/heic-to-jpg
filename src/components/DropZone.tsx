@@ -146,7 +146,7 @@ export default function DropZone({ onFilesSelected, disabled }: DropZoneProps) {
         <p className="text-base font-semibold text-slate-700 dark:text-slate-200">
           {isDraggingOver
             ? 'Відпустіть файли тут!'
-            : 'Перетягніть HEIC-файли або папку сюди'}
+            : 'Перетягніть HEIC/WEBP/JFIF-файли або папку сюди'}
         </p>
         <p className="text-sm text-slate-500 dark:text-slate-400">
           Або виберіть файли чи цілу папку з комп'ютера
@@ -177,7 +177,7 @@ export default function DropZone({ onFilesSelected, disabled }: DropZoneProps) {
 
       {/* Hint */}
       <p className="text-xs text-slate-400 dark:text-slate-500">
-        Підтримуються .HEIC та .HEIF&nbsp;&nbsp;·&nbsp;&nbsp;Файли не залишають ваш пристрій
+        Підтримуються .HEIC, .HEIF, .WEBP та .JFIF&nbsp;&nbsp;·&nbsp;&nbsp;Файли не залишають ваш пристрій
       </p>
 
       {/* Hidden file inputs */}
@@ -186,10 +186,10 @@ export default function DropZone({ onFilesSelected, disabled }: DropZoneProps) {
         type="file"
         id="file-input"
         multiple
-        accept=".heic,.heif,image/heic,image/heif"
+        accept=".heic,.heif,.webp,.jfif,image/heic,image/heif,image/webp,image/jpeg"
         className="sr-only"
         onChange={handleFileInputChange}
-        aria-label="Вибір HEIC файлів"
+        aria-label="Вибір HEIC/WEBP/JFIF файлів"
       />
       <input
         ref={folderInputRef}

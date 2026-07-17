@@ -48,13 +48,13 @@ export async function downloadAsZip(
     .map((f) => `  - ${f.originalName}: ${f.errorMessage ?? 'невідома помилка'}`);
 
   const report = [
-    'HEIC → JPG Conversion Report',
+    'HEIC/WEBP/JFIF → JPG Conversion Report',
     '='.repeat(40),
     `Дата: ${new Date().toLocaleString('uk-UA')}`,
     '',
     `Успішно конвертовано: ${doneFiles.length}`,
     `Помилки: ${files.filter((f) => f.status === 'error').length}`,
-    `Пропущено (не HEIC): 0`,
+    `Пропущено (непідтримуваний формат): 0`,
     '',
     ...(allErrors.length > 0
       ? ['Помилки:', ...allErrors]
@@ -72,7 +72,7 @@ export async function downloadAsZip(
     let zipPath: string;
     if (keepFolderStructure && file.relativePath) {
       // Replace the HEIC extension in the relative path with .jpg
-      zipPath = file.relativePath.replace(/\.(heic|heif)$/i, '.jpg');
+      zipPath = file.relativePath.replace(/\.(heic|heif|webp|jfif)$/i, '.jpg');
     } else {
       zipPath = file.outputFileName;
     }
